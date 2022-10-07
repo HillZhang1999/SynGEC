@@ -1,2 +1,2 @@
 # SynGEC
-Code &amp; data for our EMNLP2022 paper "SynGEC: Syntax-Enhanced Grammatical Error Correction with a Tailored GEC-Oriented Parser"
+Code &amp; data for our EMNLP2022 paper "SynGEC: Syntax-Enhanced Grammatical Error Correction with a Tailored GEC-Oriented Parser" (Will be released as soon as possible)
