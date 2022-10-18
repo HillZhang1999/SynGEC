@@ -46,6 +46,7 @@ Please turn to their repos for more instructions ~
 # How to Use
 
 ## SynGEC
+**Note: All checkpoints/raw data/preprocessed files have not been uploaded, so the links are empty now. We will upload them as soon as possible.**
 You can download the following converged checkpoints and change the model path in bash files like `./bash/*_exp/generate_*` to generate GEC results.
 
 English Models:
@@ -155,7 +156,7 @@ If you want to train new models using your own dataset, please follow the instru
 You can also download the preprocessed data files from this [Link](1). **Note that you must get their licenses first!** 
 
 ## Use Your Own Data
-Each data fold should contain the following files:
+Each data folder should contain the following files:
 
 + src.txt
 + tgt.txt (except test-sets)
