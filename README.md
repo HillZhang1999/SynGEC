@@ -6,7 +6,7 @@ Official implementation for the EMNLP-2022 paper "SynGEC: Syntax-Enhanced Gramma
 If you think our work is helpful, please cite the following paper:
 
 ```
-@inproceedings{huang2022DATransformer,
+@inproceedings{zhang2022syngec,
   author = {Zhang, Yue and Zhang, Bo and Li, Zhenghua and Bao, Zuyi and Li, Chen and Zhang, Min},
   title = {SynGEC: Syntax-Enhanced Grammatical Error Correction with a Tailored GEC-Oriented Parser},
   booktitle = {Proceedings of EMNLP},
