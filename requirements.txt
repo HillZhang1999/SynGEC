@@ -42,5 +42,6 @@ urllib3==1.26.10
 wrapt==1.14.1
 xlrd==2.0.1
 xlwt==1.3.0
+supar==1.1.4
 errant
 subword-nmt
