@@ -45,6 +45,37 @@ Please turn to their repos for more instructions ~
 
 # How to Use
 
+## Description of Codes
+```
+|-- bash  # Some scripts to reproduce our results
+|   |-- chinese_exp
+|   `-- english_exp
+|-- data  # Data files (mainly parallel sentence files)
+|   |-- bea19_dev
+|   |-- bea19_test
+|   |-- clang8_train
+|   |-- conll14_test
+|   |-- dicts
+|   |-- error_coded_train
+|   |-- hsk+lang8_train
+|   |-- hsk_train
+|   |-- mucgec_dev
+|   |-- mucgec_test
+|   `-- wi_locness_train
+|-- model  # Model checkpoints for GOPar and SynGEC
+|   |-- gopar
+|   `-- syngec
+|-- pics  # Pictures
+|-- preprocess  # Preprocessed binary files for fairseq training
+|-- pretrained_weights  # Pretrained language models, e.g., BART
+|-- src  # Main codes of our GOPar and SynGEC models
+|   |-- src_gopar
+|   `-- src_syngec
+|       |-- fairseq-0.10.2
+|       `-- syngec_model
+`-- utils  # Some important tools, including tree projection codes
+```
+
 ## SynGEC
 **Note: All checkpoints/raw data/preprocessed files have not been uploaded, so the links are empty now. We will upload them as soon as possible.**
 You can download the following converged checkpoints and change the model path in bash files like `./bash/*_exp/generate_*` to generate GEC results.
