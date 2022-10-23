@@ -71,8 +71,8 @@ Please turn to their repos for more instructions ~
 |-- src  # Main codes of our GOPar and SynGEC models
 |   |-- src_gopar
 |   `-- src_syngec
-|       |-- fairseq-0.10.2
-|       `-- syngec_model
+|       |-- fairseq-0.10.2  # Our modified Fairseq. Specifically, we modify their trainer, modules, datasets, etc.
+|       `-- syngec_model  # Main model files for SynGEC
 `-- utils  # Some important tools, including tree projection codes
 ```
 
