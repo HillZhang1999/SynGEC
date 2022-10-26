@@ -1,5 +1,5 @@
 # SynGEC
-Official implementation for the EMNLP-2022 paper "SynGEC: Syntax-Enhanced Grammatical Error Correction with a Tailored GEC-Oriented Parser".
+Official implementation for the EMNLP-2022 paper "SynGEC: Syntax-Enhanced Grammatical Error Correction with a Tailored GEC-Oriented Parser". [[Paper Link]](https://arxiv.org/pdf/2210.12484)
 
 # Citation
 
