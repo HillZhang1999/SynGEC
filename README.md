@@ -152,9 +152,9 @@ CUDA_VISIBLE_DEVICES=$CUDA_DEVICE python -u ${FAIRSEQ_DIR}/interactive.py $PROCE
     --log-format tqdm \
     --remove-bpe \
     --fp16 \
-    --conll_file $CoNLL14_TEST_BIN_DIR/test.conll.src-tgt.src\  # Syntax-specific
-    --dpd_file $CoNLL14_TEST_BIN_DIR/test.dpd.src-tgt.src \  # Syntax-specific
-    --probs_file $CoNLL14_TEST_BIN_DIR/test.probs.src-tgt.src \  # Syntax-specific
+    --conll_file $CoNLL14_TEST_BIN_DIR/test.conll.src-tgt.src\
+    --dpd_file $CoNLL14_TEST_BIN_DIR/test.dpd.src-tgt.src \
+    --probs_file $CoNLL14_TEST_BIN_DIR/test.probs.src-tgt.src \
     --output_file $OUTPUT_DIR/CoNLL14.out.nbest \
     < $OUTPUT_DIR/CoNLL14.src.bpe
 
