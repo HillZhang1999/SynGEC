@@ -77,28 +77,30 @@ Please turn to their repos for more instructions ~
 ```
 
 ## SynGEC
-**Note: All checkpoints/raw data/preprocessed files have not been uploaded, so the links are empty now. We will upload them as soon as possible.**
 You can download the following converged checkpoints and change the model path in bash files like `./bash/*_exp/generate_*` to generate GEC results.
 
 English Models:
 
 | Name | Download Link | Description |
 | :------- | :---------: | :---------: |
-| **Transformer-en** | [Link](1) | Transformer-based GEC Model |
-| **SynGEC-en** | [Link](1) | SynGEC Model based on Transformer|
-| **BART-en** | [Link](1) | BART-based GEC Model|
-| **SynGEC-BART-en** | [Link](1) | SynGEC Model Enhanced with BART |
+| **Transformer-en** | [Link](http://mitalinlp.oss-cn-hangzhou.aliyuncs.com/emnlp2022_syngec%2Fenglish_transformer_baseline.pt) | Transformer-based GEC Model |
+| **SynGEC-en** | [Link](http://mitalinlp.oss-cn-hangzhou.aliyuncs.com/emnlp2022_syngec%2Fenglish_transformer_syngec.pt) | SynGEC Model based on Transformer|
+| **BART-en** | [Link](http://mitalinlp.oss-cn-hangzhou.aliyuncs.com/emnlp2022_syngec%2Fenglish_bart_baseline.pt) | BART-based GEC Model|
+| **SynGEC-BART-en** | [Link](http://mitalinlp.oss-cn-hangzhou.aliyuncs.com/emnlp2022_syngec%2Fenglish_bart_syngec.pt) | SynGEC Model Enhanced with BART |
 
 Chinese Models:
 | Name | Download Link | Description |
 | :------- | :---------: | :---------: |
-| **Transformer-zh** | [Link](1) | Transformer-based GEC Model |
-| **SynGEC-zh** | [Link](1) | SynGEC Model based on Transformer|
-| **BART-zh** | [Link](1) | BART-based GEC Model|
-| **SynGEC-BART-zh** | [Link](1) | SynGEC Model Enhanced with BART |
+| **Transformer-zh** | [Link](http://mitalinlp.oss-cn-hangzhou.aliyuncs.com/emnlp2022_syngec%2Fchinese_transformer_baseline.pt) | Transformer-based GEC Model |
+| **SynGEC-zh** | [Link](http://mitalinlp.oss-cn-hangzhou.aliyuncs.com/emnlp2022_syngec%2Fchinese_transformer_syngec.pt) | SynGEC Model based on Transformer|
+| **BART-zh** | [Link](http://mitalinlp.oss-cn-hangzhou.aliyuncs.com/emnlp2022_syngec%2Fchinese_bart_baseline.pt) | BART-based GEC Model|
+| **SynGEC-BART-zh** | [Link](http://mitalinlp.oss-cn-hangzhou.aliyuncs.com/emnlp2022_syngec%2Fchinese_bart_syngec.pt) | SynGEC Model Enhanced with BART |
 
-For example, you can download the `Transformer-en` model and put it at `./model/syngec/english_transformer_baseline.pt`. Then you can run the following script to generate results for CoNLL-14 dataset:
+For example, you can download the `Transformer-en` model and rename and put it at `./model/syngec/english_transformer_baseline.pt`. Then you can run the following script to generate results for CoNLL-14 dataset:
 ```
+PROCESSED_DIR=./preprocess/english_clang8_with_syntax_transformer
+BEAM=10
+N_BEST=1
 OUTPUT_DIR=./results
 FAIRSEQ_DIR=./src_syngec/fairseq-0.10.2/fairseq_cli
 MODEL_PATH=./model/syngec/english_transformer_baseline.pt
@@ -132,6 +134,9 @@ python ./utils/post_process_english.py $OUTPUT_DIR/CoNLL14.src $OUTPUT_DIR/CoNLL
 
 For SynGEC models, you need to first preprocess the syntactic information of test-sets as described in `./bash/*_exp/preprocess_*.sh`, and then generate results like this:
 ```
+PROCESSED_DIR=./preprocess/english_clang8_with_syntax_transformer
+BEAM=10
+N_BEST=1
 OUTPUT_DIR=./results
 FAIRSEQ_DIR=./src_syngec/fairseq-0.10.2/fairseq_cli
 MODEL_PATH=./model/syngec/english_transformer_syngec.pt
@@ -168,8 +173,8 @@ We also provide our fine-tuned GEC-oriented parser (GOPar), which can jointly pa
 
 | Name | Download Link | Description |
 | :------- | :---------: | :---------: |
-| **biaffine-dep-electra-en-gopar** | [Link](1) | GOPar for English |
-| **biaffine-dep-electra-zh-gopar** | [Link](1) | GOPar for Chinese |
+| **biaffine-dep-electra-en-gopar** | [Link](http://mitalinlp.oss-cn-hangzhou.aliyuncs.com/emnlp2022_syngec%2Fbiaffine-dep-electra-en-gopar) | GOPar for English |
+| **biaffine-dep-electra-zh-gopar** | [Link](http://mitalinlp.oss-cn-hangzhou.aliyuncs.com/emnlp2022_syngec%2Fbiaffine-dep-electra-zh-gopar) | GOPar for Chinese |
 
 You can use `./src_gopar/parse.py` to parse with downloaded GOPar checkpoints.
 
@@ -184,7 +189,8 @@ If you want to train new models using your own dataset, please follow the instru
 
 + `generate_syngec_*.sh`: generate results (CoNLL14 and BEA19 for English, NLPCC18 and MuCGEC for Chinese);
 
-You can also download the preprocessed data files from this [Link](1). **Note that you must get their licenses first!** 
+You can also download the preprocessed data files from this [Link](http://mitalinlp.oss-cn-hangzhou.aliyuncs.com/emnlp2022_syngec%2Fpreprocess.tar.gz). 
+**Note that you must get their licenses first!** 
 
 ## Use Your Own Data
 Each data folder should contain the following files:
