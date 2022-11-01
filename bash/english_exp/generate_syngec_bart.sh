@@ -7,7 +7,7 @@ MODEL_DIR=../../model/english_bart_syngec/$SEED/stage3
 
 CoNLL14_TEST_BIN_DIR=../../preprocess/english_conll14_with_syntax_bart/bin
 BEA19_TEST_BIN_DIR=../../preprocess/english_bea19_with_syntax_bart/bin
-PROCESSED_DIR=../../preprocess/english_clang8_with_syntax_bart/bin
+PROCESSED_DIR=../../preprocess/english_clang8_with_syntax_bart
 
 OUTPUT_DIR=$MODEL_DIR/results
 
