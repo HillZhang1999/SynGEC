@@ -7,7 +7,7 @@ MODEL_DIR=../../model/english_transformer_syngec/$SEED/stage3
 
 CoNLL14_TEST_BIN_DIR=../../preprocess/english_conll14_with_syntax_transformer/bin
 BEA19_TEST_BIN_DIR=../../preprocess/english_bea19_with_syntax_transformer/bin
-PROCESSED_DIR=../../preprocess/english_clang8_with_syntax_transformer/bin
+PROCESSED_DIR=../../preprocess/english_clang8_with_syntax_transformer
 
 OUTPUT_DIR=$MODEL_DIR/results
 
