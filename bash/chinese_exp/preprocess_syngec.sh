@@ -27,8 +27,8 @@ fi
 # Subword Align
 if [ ! -f $TRAIN_SRC_FILE".swm" ]; then
   echo "Align subwords and words..."
-  python ../../utils/subword_align.py $TRAIN_SRC_FILE $TRAIN_SRC_FILE".char" $TRAIN_SRC_FILE".swm"
-  python ../../utils/subword_align.py $VALID_SRC_FILE $VALID_SRC_FILE".char" $VALID_SRC_FILE".swm"
+  python ../../utils/subword_align.py $TRAIN_SRC_FILE".char" $TRAIN_SRC_FILE".char" $TRAIN_SRC_FILE".swm"
+  python ../../utils/subword_align.py $VALID_SRC_FILE".char" $VALID_SRC_FILE".char" $VALID_SRC_FILE".swm"
 fi
 
 # fairseq preprocess
@@ -111,7 +111,7 @@ fi
 # Subword Align
 if [ ! -f $TEST_SRC_FILE".swm" ]; then
   echo "Align subwords and words..."
-  python ../../utils/subword_align.py $TEST_SRC_FILE $TEST_SRC_FILE".char" $TEST_SRC_FILE".swm"
+  python ../../utils/subword_align.py $TEST_SRC_FILE".char" $TEST_SRC_FILE".char" $TEST_SRC_FILE".swm"
 fi
 
 # fairseq preprocess
