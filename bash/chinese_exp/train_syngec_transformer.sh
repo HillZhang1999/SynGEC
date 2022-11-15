@@ -14,7 +14,7 @@ mkdir -p $MODEL_DIR_STAGE1/src
 
 cp -r $FAIRSEQ_PATH $MODEL_DIR_STAGE1/src
 
-cp -r $FAIRSEQ_DIR $MODEL_DIR_STAGE1/src
+cp -r $FAIRSEQ_CLI_PATH $MODEL_DIR_STAGE1/src
 
 cp -r ../../src/src_syngec/syngec_model $MODEL_DIR_STAGE1/src
 
@@ -69,7 +69,7 @@ mkdir -p $MODEL_DIR_STAGE1/src
 
 cp -r $FAIRSEQ_PATH $MODEL_DIR_STAGE1/src
 
-cp -r $FAIRSEQ_DIR $MODEL_DIR_STAGE1/src
+cp -r $FAIRSEQ_CLI_PATH $MODEL_DIR_STAGE1/src
 
 cp -r ../../src/src_syngec/syngec_model $MODEL_DIR_STAGE1/src
 
