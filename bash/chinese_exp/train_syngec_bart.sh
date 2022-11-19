@@ -22,7 +22,7 @@ cp ./train_syngec_bart.sh $MODEL_DIR_STAGE1
 
 # Transformer-base-setting stage 1
 
-CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 nohup python -u $FAIRSEQ_DIR/train.py $PROCESSED_DIR_STAGE1/bin \
+CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 nohup python -u $FAIRSEQ_CLI_PATH/train.py $PROCESSED_DIR_STAGE1/bin \
     --save-dir $MODEL_DIR_STAGE1 \
     --user-dir ../../src/src_syngec/syngec_model \
     --bart-model-file-from-transformers fnlp/bart-large-chinese \
@@ -59,10 +59,9 @@ wait
 
 SEED=2022
 FAIRSEQ_CLI_PATH=../../src/src_syngec/fairseq-0.10.2/fairseq_cli
-MODEL_DIR_STAGE1=../../model/chinese_bart_baseline/$SEED/stage1
+MODEL_DIR_STAGE1=../../model/chinese_bart_syngec/$SEED/stage1
 PROCESSED_DIR_STAGE1=../../preprocess/chinese_hsk+lang8_with_syntax_transformer
 FAIRSEQ_PATH=../../src/src_syngec/fairseq-0.10.2/fairseq
-BART_FILE=
 
 mkdir -p $MODEL_DIR_STAGE1
 
@@ -78,10 +77,9 @@ cp ./train_syngec_bart.sh $MODEL_DIR_STAGE1
 
 # Transformer-base-setting stage 1
 
-CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 nohup python -u $FAIRSEQ_DIR/train.py $PROCESSED_DIR_STAGE1/bin \
+CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 nohup python -u $FAIRSEQ_CLI_PATH/train.py $PROCESSED_DIR_STAGE1/bin \
     --save-dir $MODEL_DIR_STAGE1 \
     --user-dir ../../src/src_syngec/syngec_model \
-    --user-dir ../ \
     --use-syntax \
     --only-gnn \
     --syntax-encoder GCN \
