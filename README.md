@@ -83,18 +83,18 @@ English Models:
 
 | Name | Download Link | Description |
 | :------- | :---------: | :---------: |
-| **Transformer-en** | [Link](http://mitalinlp.oss-cn-hangzhou.aliyuncs.com/emnlp2022_syngec%2Fenglish_transformer_baseline.pt) | Transformer-based GEC Model |
-| **SynGEC-en** | [Link](http://mitalinlp.oss-cn-hangzhou.aliyuncs.com/emnlp2022_syngec%2Fenglish_transformer_syngec.pt) | SynGEC Model based on Transformer|
-| **BART-en** | [Link](http://mitalinlp.oss-cn-hangzhou.aliyuncs.com/emnlp2022_syngec%2Fenglish_bart_baseline.pt) | BART-based GEC Model|
-| **SynGEC-BART-en** | [Link](http://mitalinlp.oss-cn-hangzhou.aliyuncs.com/emnlp2022_syngec%2Fenglish_bart_syngec.pt) | SynGEC Model Enhanced with BART |
+| **Transformer-en** | [Link](https://drive.google.com/file/d/1uCjMuRPwJqLdU35MARHnd5otpyQVJDpu/view?usp=sharing) | Transformer-based GEC Model |
+| **SynGEC-en** | [Link](https://drive.google.com/file/d/1kG1yTy3KrMba0Pr1oVsqcCwC4RxdnNeZ/view?usp=sharing) | SynGEC Model based on Transformer|
+| **BART-en** | [Link](https://drive.google.com/file/d/1lTensE8ceSAA0y4vick57uJjJS3IQSpE/view?usp=sharing) | BART-based GEC Model|
+| **SynGEC-BART-en** | [Link](https://drive.google.com/file/d/1XQympc0S3DueAjrT0SubQAYU9o0VlP7v/view?usp=sharing) | SynGEC Model Enhanced with BART |
 
 Chinese Models:
 | Name | Download Link | Description |
 | :------- | :---------: | :---------: |
-| **Transformer-zh** | [Link](http://mitalinlp.oss-cn-hangzhou.aliyuncs.com/emnlp2022_syngec%2Fchinese_transformer_baseline.pt) | Transformer-based GEC Model |
-| **SynGEC-zh** | [Link](http://mitalinlp.oss-cn-hangzhou.aliyuncs.com/emnlp2022_syngec%2Fchinese_transformer_syngec.pt) | SynGEC Model based on Transformer|
-| **BART-zh** | [Link](http://mitalinlp.oss-cn-hangzhou.aliyuncs.com/emnlp2022_syngec%2Fchinese_bart_baseline.pt) | BART-based GEC Model|
-| **SynGEC-BART-zh** | [Link](http://mitalinlp.oss-cn-hangzhou.aliyuncs.com/emnlp2022_syngec%2Fchinese_bart_syngec.pt) | SynGEC Model Enhanced with BART |
+| **Transformer-zh** | [Link](https://drive.google.com/file/d/1JMbJY-Ol8hvZtUFEplFJNIKBZpDl3FdY/view?usp=sharing) | Transformer-based GEC Model |
+| **SynGEC-zh** | [Link](https://drive.google.com/file/d/1Fj4Sp76U6IZxvBO8h7IpXR6cBvlYBxBW/view?usp=sharing) | SynGEC Model based on Transformer|
+| **BART-zh** | [Link](https://drive.google.com/file/d/1-fHi6ZfDHWRXux6ZF1AnaN_fNOOy7Bco/view?usp=sharing) | BART-based GEC Model|
+| **SynGEC-BART-zh** | [Link](https://drive.google.com/file/d/1i8kfTHmrQfZhIeCQDZCe0_NP_VKOwp1D/view?usp=sharing) | SynGEC Model Enhanced with BART |
 
 For example, you can download the `Transformer-en` model and rename and put it at `./model/syngec/english_transformer_baseline.pt`. Then you can run the following script to generate results for CoNLL-14 dataset:
 ```
@@ -173,8 +173,8 @@ We also provide our fine-tuned GEC-oriented parser (GOPar), which can jointly pa
 
 | Name | Download Link | Description |
 | :------- | :---------: | :---------: |
-| **biaffine-dep-electra-en-gopar** | [Link](http://mitalinlp.oss-cn-hangzhou.aliyuncs.com/emnlp2022_syngec%2Fbiaffine-dep-electra-en-gopar) | GOPar for English |
-| **biaffine-dep-electra-zh-gopar** | [Link](http://mitalinlp.oss-cn-hangzhou.aliyuncs.com/emnlp2022_syngec%2Fbiaffine-dep-electra-zh-gopar) | GOPar for Chinese |
+| **biaffine-dep-electra-en-gopar** | [Link](https://drive.google.com/file/d/1iei3TkFk2Onga2HHgPEP8CrbKaMKov5e/view?usp=sharing) | GOPar for English |
+| **biaffine-dep-electra-zh-gopar** | [Link](https://drive.google.com/file/d/1KzLx6bKb5k1u05kPeyXxO85ZClJ5fm0q/view?usp=sharing) | GOPar for Chinese |
 
 You can use `./src_gopar/parse.py` to parse with downloaded GOPar checkpoints.
 
@@ -189,7 +189,7 @@ If you want to train new models using your own dataset, please follow the instru
 
 + `generate_syngec_*.sh`: generate results (CoNLL14 and BEA19 for English, NLPCC18 and MuCGEC for Chinese);
 
-You can also download the preprocessed data files from this [Link](http://mitalinlp.oss-cn-hangzhou.aliyuncs.com/emnlp2022_syngec%2Fpreprocess.tar.gz). 
+You can also download the preprocessed data files from this [Link](https://drive.google.com/file/d/1dIDfYhELrh3BEKgGpsPYAy5ehcobmMov/view?usp=sharing). 
 **Note that you must get their licenses first!** 
 
 ## Use Your Own Data
