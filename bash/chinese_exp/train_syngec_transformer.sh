@@ -22,7 +22,7 @@ cp ./train_syngec_transformer.sh $MODEL_DIR_STAGE1
 
 # Transformer-base-setting stage 1
 
-CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 nohup python -u $FAIRSEQ_DIR/train.py $PROCESSED_DIR_STAGE1/bin \
+CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 nohup python -u $FAIRSEQ_CLI_PATH/train.py $PROCESSED_DIR_STAGE1/bin \
     --save-dir $MODEL_DIR_STAGE1 \
     --user-dir ../../src/src_syngec/syngec_model \
     --task syntax-enhanced-translation \
@@ -77,7 +77,7 @@ cp ./train_syngec_transformer.sh $MODEL_DIR_STAGE1
 
 # Transformer-base-setting stage 1
 
-CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 nohup python -u $FAIRSEQ_DIR/train.py $PROCESSED_DIR_STAGE1/bin \
+CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 nohup python -u $FAIRSEQ_CLI_PATH/train.py $PROCESSED_DIR_STAGE1/bin \
     --save-dir $MODEL_DIR_STAGE1 \
     --user-dir ../../src/src_syngec/syngec_model \
     --use-syntax \
