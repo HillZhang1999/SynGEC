@@ -116,9 +116,9 @@ fi
 
 # fairseq preprocess
 mkdir -p $PROCESSED_DIR
-cp $TEST_SRC_FILE $PROCESSED_DIR/train.src
-cp $TEST_SRC_FILE".char" $PROCESSED_DIR/train.char.src
-cp $TEST_SRC_FILE".swm" $PROCESSED_DIR/train.swm.src
+cp $TEST_SRC_FILE $PROCESSED_DIR/test.src
+cp $TEST_SRC_FILE".char" $PROCESSED_DIR/test.char.src
+cp $TEST_SRC_FILE".swm" $PROCESSED_DIR/test.swm.src
 
 # syntax specific
 python ../../utils/syntax_information_reprocess.py $TEST_SRC_FILE $CONLL_SUFFIX conll transformer
