@@ -5,7 +5,7 @@ src_file_char=$data_dir/src.txt.char
 tgt_file_char=$data_dir/tgt.txt.char
 para_file=$data_dir/para_tgt2src.txt
 m2_file=$data_dir/m2_reversed.txt
-vanilla_parser_path=biaffine-dep-electra-zh
+vanilla_parser_path=../../model/gopar/biaffine-dep-electra-zh-char
 gopar_path=../../model/gopar/biaffine-dep-electra-zh-gopar
 
 # apply char
