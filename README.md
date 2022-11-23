@@ -175,6 +175,7 @@ We also provide our fine-tuned GEC-oriented parser (GOPar), which can jointly pa
 | :------- | :---------: | :---------: |
 | **biaffine-dep-electra-en-gopar** | [Link](https://drive.google.com/file/d/1iei3TkFk2Onga2HHgPEP8CrbKaMKov5e/view?usp=sharing) | GOPar for English |
 | **biaffine-dep-electra-zh-gopar** | [Link](https://drive.google.com/file/d/1KzLx6bKb5k1u05kPeyXxO85ZClJ5fm0q/view?usp=sharing) | GOPar for Chinese |
+| **biaffine-dep-electra-zh-char** | [Link](https://drive.google.com/file/d/1ZtX76W011lLvRi5qAlN-sAUdbyPA4nuY/view?usp=sharing) | Off-the-shelf char-level parser for Chinese (CTB) |
 
 You can use `./src_gopar/parse.py` to parse with downloaded GOPar checkpoints.
 
