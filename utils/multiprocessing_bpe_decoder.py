@@ -119,7 +119,7 @@ class MultiprocessingEncoder(object):
                 tok = tok[1:]
                 text[idx] = tok
             else:
-                assert text[idx - 1] != ""
+                # assert text[idx - 1] != ""
                 text[idx - 1] = text[idx - 1] + "@@"
         len_2 = len(text)
         assert len_1 == len_2, print(str(tokens), str(text))
