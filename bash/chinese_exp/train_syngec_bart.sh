@@ -62,6 +62,7 @@ FAIRSEQ_CLI_PATH=../../src/src_syngec/fairseq-0.10.2/fairseq_cli
 MODEL_DIR_STAGE1=../../model/chinese_bart_syngec/$SEED/stage1
 PROCESSED_DIR_STAGE1=../../preprocess/chinese_hsk+lang8_with_syntax_transformer
 FAIRSEQ_PATH=../../src/src_syngec/fairseq-0.10.2/fairseq
+BART_PATH=../../model/chinese_bart_baseline/$SEED/stage1/checkpoint_best.pt
 
 mkdir -p $MODEL_DIR_STAGE1
 
@@ -84,6 +85,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 nohup python -u $FAIRSEQ_CLI_PATH/train.py 
     --only-gnn \
     --syntax-encoder GCN \
     --freeze-bart-parameters \
+    --restore-file $BART_PATH \
     --task syntax-enhanced-translation \
     --arch syntax_enhanced_bart_large \
     --skip-invalid-size-inputs-valid-test \
