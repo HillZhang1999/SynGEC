@@ -85,7 +85,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 nohup python -u $FAIRSEQ_CLI_PATH/train.py 
     --only-gnn \
     --syntax-encoder GCN \
     --freeze-bart-parameters \
-    --restore-file $BART_PATH \
+    --finetune-from-model $BART_PATH \
     --task syntax-enhanced-translation \
     --arch syntax_enhanced_bart_large \
     --skip-invalid-size-inputs-valid-test \
