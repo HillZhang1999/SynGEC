@@ -296,7 +296,10 @@ class Trainer(object):
             bart_model_file_from_transformers = self.args.bart_model_file_from_transformers
             # bexists = PathManager.isfile(bart_model_file_from_transformers)
             # if bexists:
-            model = BartForConditionalGeneration.from_pretrained(bart_model_file_from_transformers)
+            if "fnlp" in bart_model_file_from_transformers:
+                model = BartForConditionalGeneration.from_pretrained(bart_model_file_from_transformers, revision="v1.0")
+            else:
+                model = BartForConditionalGeneration.from_pretrained(bart_model_file_from_transformers)
             self.get_model().load_bart_state_dict_from_transformers(
                 model, strict=True, args=self.args
             )
