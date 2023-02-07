@@ -3,7 +3,7 @@ import tokenization
 from tqdm import tqdm
 from multiprocessing import Pool
 
-tokenizer = tokenization.FullTokenizer(vocab_file="../../data/dicts/vocab.txt", do_lower_case=True)
+tokenizer = tokenization.FullTokenizer(vocab_file="../../data/dicts/chinese_vocab.txt", do_lower_case=True)
 
 def split(line):
     line = line.strip()
