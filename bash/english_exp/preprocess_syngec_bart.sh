@@ -18,60 +18,60 @@ VALID_TGT_FILE=../../data/bea19_dev/tgt.txt
 
 # apply bpe
 if [ ! -f $TRAIN_SRC_FILE".bart_bpe" ]; then
-  echo "Apply BPE..."
-  python ../../src/src_syngec/fairseq-0.10.2/fairseq/examples/roberta/multiprocessing_bpe_encoder.py \
-            --encoder-json ../../pretrained_weights/encoder.json \
-            --vocab-bpe ../../pretrained_weights/vocab.bpe \
-            --inputs $TRAIN_SRC_FILE \
-            --outputs $TRAIN_SRC_FILE".bart_bpe" \
-            --workers 60 \
-            --keep-empty;
-  python ../../src/src_syngec/fairseq-0.10.2/fairseq/examples/roberta/multiprocessing_bpe_encoder.py \
-            --encoder-json ../../pretrained_weights/encoder.json \
-            --vocab-bpe ../../pretrained_weights/vocab.bpe \
-            --inputs $TRAIN_TGT_FILE \
-            --outputs $TRAIN_TGT_FILE".bart_bpe" \
-            --workers 60 \
-            --keep-empty;
-  python ../../src/src_syngec/fairseq-0.10.2/fairseq/examples/roberta/multiprocessing_bpe_encoder.py \
-            --encoder-json ../../pretrained_weights/encoder.json \
-            --vocab-bpe ../../pretrained_weights/vocab.bpe \
-            --inputs $VALID_SRC_FILE \
-            --outputs $VALID_SRC_FILE".bart_bpe" \
-            --workers 60 \
-            --keep-empty;
-  python ../../src/src_syngec/fairseq-0.10.2/fairseq/examples/roberta/multiprocessing_bpe_encoder.py \
-            --encoder-json ../../pretrained_weights/encoder.json \
-            --vocab-bpe ../../pretrained_weights/vocab.bpe \
-            --inputs $VALID_TGT_FILE \
-            --outputs $VALID_TGT_FILE".bart_bpe" \
-            --workers 60 \
-            --keep-empty;
+    echo "Apply BPE..."
+    python ../../src/src_syngec/fairseq-0.10.2/examples/roberta/multiprocessing_bpe_encoder.py \
+        --encoder-json ../../pretrained_weights/encoder.json \
+        --vocab-bpe ../../pretrained_weights/vocab.bpe \
+        --inputs $TRAIN_SRC_FILE \
+        --outputs $TRAIN_SRC_FILE".bart_bpe" \
+        --workers 60 \
+        --keep-empty
+    python ../../src/src_syngec/fairseq-0.10.2/examples/roberta/multiprocessing_bpe_encoder.py \
+        --encoder-json ../../pretrained_weights/encoder.json \
+        --vocab-bpe ../../pretrained_weights/vocab.bpe \
+        --inputs $TRAIN_TGT_FILE \
+        --outputs $TRAIN_TGT_FILE".bart_bpe" \
+        --workers 60 \
+        --keep-empty
+    python ../../src/src_syngec/fairseq-0.10.2/examples/roberta/multiprocessing_bpe_encoder.py \
+        --encoder-json ../../pretrained_weights/encoder.json \
+        --vocab-bpe ../../pretrained_weights/vocab.bpe \
+        --inputs $VALID_SRC_FILE \
+        --outputs $VALID_SRC_FILE".bart_bpe" \
+        --workers 60 \
+        --keep-empty
+    python ../../src/src_syngec/fairseq-0.10.2/examples/roberta/multiprocessing_bpe_encoder.py \
+        --encoder-json ../../pretrained_weights/encoder.json \
+        --vocab-bpe ../../pretrained_weights/vocab.bpe \
+        --inputs $VALID_TGT_FILE \
+        --outputs $VALID_TGT_FILE".bart_bpe" \
+        --workers 60 \
+        --keep-empty
 fi
 
 # Decode
 if [ ! -f $TRAIN_SRC_FILE".bart_bpe.tok" ]; then
-  python ../../utils/multiprocessing_bpe_decoder.py \
-          --encoder-json ../../pretrained_weights/encoder.json \
-          --vocab-bpe ../../pretrained_weights/vocab.bpe \
-          --inputs $TRAIN_SRC_FILE".bart_bpe" \
-          --outputs $TRAIN_SRC_FILE".bart_bpe.tok" \
-          --workers 60 \
-          --keep-empty;
-  python ../../utils/multiprocessing_bpe_decoder.py \
-          --encoder-json ../../pretrained_weights/encoder.json \
-          --vocab-bpe ../../pretrained_weights/vocab.bpe \
-          --inputs $VALID_SRC_FILE".bart_bpe" \
-          --outputs $VALID_SRC_FILE".bart_bpe.tok" \
-          --workers 60 \
-          --keep-empty;
+    python ../../utils/multiprocessing_bpe_decoder.py \
+        --encoder-json ../../pretrained_weights/encoder.json \
+        --vocab-bpe ../../pretrained_weights/vocab.bpe \
+        --inputs $TRAIN_SRC_FILE".bart_bpe" \
+        --outputs $TRAIN_SRC_FILE".bart_bpe.tok" \
+        --workers 60 \
+        --keep-empty
+    python ../../utils/multiprocessing_bpe_decoder.py \
+        --encoder-json ../../pretrained_weights/encoder.json \
+        --vocab-bpe ../../pretrained_weights/vocab.bpe \
+        --inputs $VALID_SRC_FILE".bart_bpe" \
+        --outputs $VALID_SRC_FILE".bart_bpe.tok" \
+        --workers 60 \
+        --keep-empty
 fi
 
 # Subword Align
 if [ ! -f $TRAIN_SRC_FILE".bart_swm" ]; then
-  echo "Align subwords and words..."
-  python ../../utils/subword_align.py $TRAIN_SRC_FILE $TRAIN_SRC_FILE".bart_bpe.tok" $TRAIN_SRC_FILE".bart_swm"
-  python ../../utils/subword_align.py $VALID_SRC_FILE $VALID_SRC_FILE".bart_bpe.tok" $VALID_SRC_FILE".bart_swm"
+    echo "Align subwords and words..."
+    python ../../utils/subword_align.py $TRAIN_SRC_FILE $TRAIN_SRC_FILE".bart_bpe.tok" $TRAIN_SRC_FILE".bart_swm"
+    python ../../utils/subword_align.py $VALID_SRC_FILE $VALID_SRC_FILE".bart_bpe.tok" $VALID_SRC_FILE".bart_swm"
 fi
 
 # fairseq preprocess
@@ -89,19 +89,18 @@ cp $TRAIN_SRC_FILE".bart_swm" $PROCESSED_DIR/train.swm.src
 cp $VALID_SRC_FILE".bart_swm" $PROCESSED_DIR/valid.swm.src
 
 # syntax specific
-python ../../utils/syntax_information_reprocess.py $TRAIN_SRC_FILE $CONLL_SUFFIX conll bart
-python ../../utils/syntax_information_reprocess.py $TRAIN_SRC_FILE $CONLL_SUFFIX probs bart
-python ../../utils/syntax_information_reprocess.py $VALID_SRC_FILE $CONLL_SUFFIX conll bart
-python ../../utils/syntax_information_reprocess.py $VALID_SRC_FILE $CONLL_SUFFIX probs bart
-
+python ../../utils/syntax_information_reprocess.py $TRAIN_SRC_FILE $CoNLL_SUFFIX conll bart
+python ../../utils/syntax_information_reprocess.py $TRAIN_SRC_FILE $CoNLL_SUFFIX probs bart
+python ../../utils/syntax_information_reprocess.py $VALID_SRC_FILE $CoNLL_SUFFIX conll bart
+python ../../utils/syntax_information_reprocess.py $VALID_SRC_FILE $CoNLL_SUFFIX probs bart
 
 cp $TRAIN_SRC_FILE".${CoNLL_SUFFIX_PROCESSED}" $PROCESSED_DIR/train.conll.src
 cp $VALID_SRC_FILE".${CoNLL_SUFFIX_PROCESSED}" $PROCESSED_DIR/valid.conll.src
 
 if [ ! -f $TRAIN_SRC_FILE".${CoNLL_SUFFIX_PROCESSED}.dpd" ]; then
-  echo "Calculate dependency distance..."
-  python ../../utils/calculate_dependency_distance.py $TRAIN_SRC_FILE".${CoNLL_SUFFIX}" $PROCESSED_DIR/train.swm.src $TRAIN_SRC_FILE".${CoNLL_SUFFIX_PROCESSED}.dpd"
-  python ../../utils/calculate_dependency_distance.py $VALID_SRC_FILE".${CoNLL_SUFFIX}" $PROCESSED_DIR/valid.swm.src $VALID_SRC_FILE".${CoNLL_SUFFIX_PROCESSED}.dpd"
+    echo "Calculate dependency distance..."
+    python ../../utils/calculate_dependency_distance.py $TRAIN_SRC_FILE".${CoNLL_SUFFIX}" $PROCESSED_DIR/train.swm.src $TRAIN_SRC_FILE".${CoNLL_SUFFIX_PROCESSED}.dpd"
+    python ../../utils/calculate_dependency_distance.py $VALID_SRC_FILE".${CoNLL_SUFFIX}" $PROCESSED_DIR/valid.swm.src $VALID_SRC_FILE".${CoNLL_SUFFIX_PROCESSED}.dpd"
 fi
 
 cp $TRAIN_SRC_FILE".${CoNLL_SUFFIX_PROCESSED}.dpd" $PROCESSED_DIR/train.dpd.src
@@ -114,19 +113,19 @@ echo "Preprocess..."
 mkdir -p $PROCESSED_DIR/bin
 
 python $FAIRSEQ_DIR/preprocess.py --source-lang src --target-lang tgt \
-       --user-dir ../../src/src_syngec/syngec_model \
-       --task syntax-enhanced-translation \
-       --trainpref $PROCESSED_DIR/train.bpe \
-       --validpref $PROCESSED_DIR/valid.bpe \
-       --destdir $PROCESSED_DIR/bin \
-       --workers $WORKER_NUM \
-       --conll-suffix conll \
-       --swm-suffix swm \
-       --dpd-suffix dpd \
-       --probs-suffix probs \
-       --labeldict ../../data/dicts/syntax_label_gec.dict \
-       --srcdict ../../pretrained_weights/dict.txt \
-       --tgtdict ../../pretrained_weights/dict.txt
+    --user-dir ../../src/src_syngec/syngec_model \
+    --task syntax-enhanced-translation \
+    --trainpref $PROCESSED_DIR/train.bpe \
+    --validpref $PROCESSED_DIR/valid.bpe \
+    --destdir $PROCESSED_DIR/bin \
+    --workers $WORKER_NUM \
+    --conll-suffix conll \
+    --swm-suffix swm \
+    --dpd-suffix dpd \
+    --probs-suffix probs \
+    --labeldict ../../data/dicts/syntax_label_gec.dict \
+    --srcdict ../../pretrained_weights/dict.txt \
+    --tgtdict ../../pretrained_weights/dict.txt
 
 echo "Finished!"
 
@@ -150,60 +149,60 @@ VALID_TGT_FILE=../../data/bea19_dev/tgt.txt
 
 # apply bpe
 if [ ! -f $TRAIN_SRC_FILE".bart_bpe" ]; then
-  echo "Apply BPE..."
-  python ../../src/src_syngec/fairseq-0.10.2/fairseq/examples/roberta/multiprocessing_bpe_encoder.py \
-            --encoder-json ../../pretrained_weights/encoder.json \
-            --vocab-bpe ../../pretrained_weights/vocab.bpe \
-            --inputs $TRAIN_SRC_FILE \
-            --outputs $TRAIN_SRC_FILE".bart_bpe" \
-            --workers 60 \
-            --keep-empty;
-  python ../../src/src_syngec/fairseq-0.10.2/fairseq/examples/roberta/multiprocessing_bpe_encoder.py \
-            --encoder-json ../../pretrained_weights/encoder.json \
-            --vocab-bpe ../../pretrained_weights/vocab.bpe \
-            --inputs $TRAIN_TGT_FILE \
-            --outputs $TRAIN_TGT_FILE".bart_bpe" \
-            --workers 60 \
-            --keep-empty;
-  python ../../src/src_syngec/fairseq-0.10.2/fairseq/examples/roberta/multiprocessing_bpe_encoder.py \
-            --encoder-json ../../pretrained_weights/encoder.json \
-            --vocab-bpe ../../pretrained_weights/vocab.bpe \
-            --inputs $VALID_SRC_FILE \
-            --outputs $VALID_SRC_FILE".bart_bpe" \
-            --workers 60 \
-            --keep-empty;
-  python ../../src/src_syngec/fairseq-0.10.2/fairseq/examples/roberta/multiprocessing_bpe_encoder.py \
-            --encoder-json ../../pretrained_weights/encoder.json \
-            --vocab-bpe ../../pretrained_weights/vocab.bpe \
-            --inputs $VALID_TGT_FILE \
-            --outputs $VALID_TGT_FILE".bart_bpe" \
-            --workers 60 \
-            --keep-empty;
+    echo "Apply BPE..."
+    python ../../src/src_syngec/fairseq-0.10.2/examples/roberta/multiprocessing_bpe_encoder.py \
+        --encoder-json ../../pretrained_weights/encoder.json \
+        --vocab-bpe ../../pretrained_weights/vocab.bpe \
+        --inputs $TRAIN_SRC_FILE \
+        --outputs $TRAIN_SRC_FILE".bart_bpe" \
+        --workers 60 \
+        --keep-empty
+    python ../../src/src_syngec/fairseq-0.10.2/examples/roberta/multiprocessing_bpe_encoder.py \
+        --encoder-json ../../pretrained_weights/encoder.json \
+        --vocab-bpe ../../pretrained_weights/vocab.bpe \
+        --inputs $TRAIN_TGT_FILE \
+        --outputs $TRAIN_TGT_FILE".bart_bpe" \
+        --workers 60 \
+        --keep-empty
+    python ../../src/src_syngec/fairseq-0.10.2/examples/roberta/multiprocessing_bpe_encoder.py \
+        --encoder-json ../../pretrained_weights/encoder.json \
+        --vocab-bpe ../../pretrained_weights/vocab.bpe \
+        --inputs $VALID_SRC_FILE \
+        --outputs $VALID_SRC_FILE".bart_bpe" \
+        --workers 60 \
+        --keep-empty
+    python ../../src/src_syngec/fairseq-0.10.2/examples/roberta/multiprocessing_bpe_encoder.py \
+        --encoder-json ../../pretrained_weights/encoder.json \
+        --vocab-bpe ../../pretrained_weights/vocab.bpe \
+        --inputs $VALID_TGT_FILE \
+        --outputs $VALID_TGT_FILE".bart_bpe" \
+        --workers 60 \
+        --keep-empty
 fi
 
 # Decode
 if [ ! -f $TRAIN_SRC_FILE".bart_bpe.tok" ]; then
-  python ../../utils/multiprocessing_bpe_decoder.py \
-          --encoder-json ../../pretrained_weights/encoder.json \
-          --vocab-bpe ../../pretrained_weights/vocab.bpe \
-          --inputs $TRAIN_SRC_FILE".bart_bpe" \
-          --outputs $TRAIN_SRC_FILE".bart_bpe.tok" \
-          --workers 60 \
-          --keep-empty;
-  python ../../utils/multiprocessing_bpe_decoder.py \
-          --encoder-json ../../pretrained_weights/encoder.json \
-          --vocab-bpe ../../pretrained_weights/vocab.bpe \
-          --inputs $VALID_SRC_FILE".bart_bpe" \
-          --outputs $VALID_SRC_FILE".bart_bpe.tok" \
-          --workers 60 \
-          --keep-empty;
+    python ../../utils/multiprocessing_bpe_decoder.py \
+        --encoder-json ../../pretrained_weights/encoder.json \
+        --vocab-bpe ../../pretrained_weights/vocab.bpe \
+        --inputs $TRAIN_SRC_FILE".bart_bpe" \
+        --outputs $TRAIN_SRC_FILE".bart_bpe.tok" \
+        --workers 60 \
+        --keep-empty
+    python ../../utils/multiprocessing_bpe_decoder.py \
+        --encoder-json ../../pretrained_weights/encoder.json \
+        --vocab-bpe ../../pretrained_weights/vocab.bpe \
+        --inputs $VALID_SRC_FILE".bart_bpe" \
+        --outputs $VALID_SRC_FILE".bart_bpe.tok" \
+        --workers 60 \
+        --keep-empty
 fi
 
 # Subword Align
 if [ ! -f $TRAIN_SRC_FILE".bart_swm" ]; then
-  echo "Align subwords and words..."
-  python ../../utils/subword_align.py $TRAIN_SRC_FILE $TRAIN_SRC_FILE".bart_bpe.tok" $TRAIN_SRC_FILE".bart_swm"
-  python ../../utils/subword_align.py $VALID_SRC_FILE $VALID_SRC_FILE".bart_bpe.tok" $VALID_SRC_FILE".bart_swm"
+    echo "Align subwords and words..."
+    python ../../utils/subword_align.py $TRAIN_SRC_FILE $TRAIN_SRC_FILE".bart_bpe.tok" $TRAIN_SRC_FILE".bart_swm"
+    python ../../utils/subword_align.py $VALID_SRC_FILE $VALID_SRC_FILE".bart_bpe.tok" $VALID_SRC_FILE".bart_swm"
 fi
 
 # fairseq preprocess
@@ -221,19 +220,18 @@ cp $TRAIN_SRC_FILE".bart_swm" $PROCESSED_DIR/train.swm.src
 cp $VALID_SRC_FILE".bart_swm" $PROCESSED_DIR/valid.swm.src
 
 # syntax specific
-python ../../utils/syntax_information_reprocess.py $TRAIN_SRC_FILE $CONLL_SUFFIX conll bart
-python ../../utils/syntax_information_reprocess.py $TRAIN_SRC_FILE $CONLL_SUFFIX probs bart
-python ../../utils/syntax_information_reprocess.py $VALID_SRC_FILE $CONLL_SUFFIX conll bart
-python ../../utils/syntax_information_reprocess.py $VALID_SRC_FILE $CONLL_SUFFIX probs bart
-
+python ../../utils/syntax_information_reprocess.py $TRAIN_SRC_FILE $CoNLL_SUFFIX conll bart
+python ../../utils/syntax_information_reprocess.py $TRAIN_SRC_FILE $CoNLL_SUFFIX probs bart
+python ../../utils/syntax_information_reprocess.py $VALID_SRC_FILE $CoNLL_SUFFIX conll bart
+python ../../utils/syntax_information_reprocess.py $VALID_SRC_FILE $CoNLL_SUFFIX probs bart
 
 cp $TRAIN_SRC_FILE".${CoNLL_SUFFIX_PROCESSED}" $PROCESSED_DIR/train.conll.src
 cp $VALID_SRC_FILE".${CoNLL_SUFFIX_PROCESSED}" $PROCESSED_DIR/valid.conll.src
 
 if [ ! -f $TRAIN_SRC_FILE".${CoNLL_SUFFIX_PROCESSED}.dpd" ]; then
-  echo "Calculate dependency distance..."
-  python ../../utils/calculate_dependency_distance.py $TRAIN_SRC_FILE".${CoNLL_SUFFIX}" $PROCESSED_DIR/train.swm.src $TRAIN_SRC_FILE".${CoNLL_SUFFIX_PROCESSED}.dpd"
-  python ../../utils/calculate_dependency_distance.py $VALID_SRC_FILE".${CoNLL_SUFFIX}" $PROCESSED_DIR/valid.swm.src $VALID_SRC_FILE".${CoNLL_SUFFIX_PROCESSED}.dpd"
+    echo "Calculate dependency distance..."
+    python ../../utils/calculate_dependency_distance.py $TRAIN_SRC_FILE".${CoNLL_SUFFIX}" $PROCESSED_DIR/train.swm.src $TRAIN_SRC_FILE".${CoNLL_SUFFIX_PROCESSED}.dpd"
+    python ../../utils/calculate_dependency_distance.py $VALID_SRC_FILE".${CoNLL_SUFFIX}" $PROCESSED_DIR/valid.swm.src $VALID_SRC_FILE".${CoNLL_SUFFIX_PROCESSED}.dpd"
 fi
 
 cp $TRAIN_SRC_FILE".${CoNLL_SUFFIX_PROCESSED}.dpd" $PROCESSED_DIR/train.dpd.src
@@ -246,19 +244,19 @@ echo "Preprocess..."
 mkdir -p $PROCESSED_DIR/bin
 
 python $FAIRSEQ_DIR/preprocess.py --source-lang src --target-lang tgt \
-       --user-dir ../../src/src_syngec/syngec_model \
-       --task syntax-enhanced-translation \
-       --trainpref $PROCESSED_DIR/train.bpe \
-       --validpref $PROCESSED_DIR/valid.bpe \
-       --destdir $PROCESSED_DIR/bin \
-       --workers $WORKER_NUM \
-       --conll-suffix conll \
-       --swm-suffix swm \
-       --dpd-suffix dpd \
-       --probs-suffix probs \
-       --labeldict ../../data/dicts/syntax_label_gec.dict \
-       --srcdict ../../pretrained_weights/dict.txt \
-       --tgtdict ../../pretrained_weights/dict.txt
+    --user-dir ../../src/src_syngec/syngec_model \
+    --task syntax-enhanced-translation \
+    --trainpref $PROCESSED_DIR/train.bpe \
+    --validpref $PROCESSED_DIR/valid.bpe \
+    --destdir $PROCESSED_DIR/bin \
+    --workers $WORKER_NUM \
+    --conll-suffix conll \
+    --swm-suffix swm \
+    --dpd-suffix dpd \
+    --probs-suffix probs \
+    --labeldict ../../data/dicts/syntax_label_gec.dict \
+    --srcdict ../../pretrained_weights/dict.txt \
+    --tgtdict ../../pretrained_weights/dict.txt
 
 echo "Finished!"
 
@@ -282,60 +280,60 @@ VALID_TGT_FILE=../../data/bea19_dev/tgt.txt
 
 # apply bpe
 if [ ! -f $TRAIN_SRC_FILE".bart_bpe" ]; then
-  echo "Apply BPE..."
-  python ../../src/src_syngec/fairseq-0.10.2/fairseq/examples/roberta/multiprocessing_bpe_encoder.py \
-            --encoder-json ../../pretrained_weights/encoder.json \
-            --vocab-bpe ../../pretrained_weights/vocab.bpe \
-            --inputs $TRAIN_SRC_FILE \
-            --outputs $TRAIN_SRC_FILE".bart_bpe" \
-            --workers 60 \
-            --keep-empty;
-  python ../../src/src_syngec/fairseq-0.10.2/fairseq/examples/roberta/multiprocessing_bpe_encoder.py \
-            --encoder-json ../../pretrained_weights/encoder.json \
-            --vocab-bpe ../../pretrained_weights/vocab.bpe \
-            --inputs $TRAIN_TGT_FILE \
-            --outputs $TRAIN_TGT_FILE".bart_bpe" \
-            --workers 60 \
-            --keep-empty;
-  python ../../src/src_syngec/fairseq-0.10.2/fairseq/examples/roberta/multiprocessing_bpe_encoder.py \
-            --encoder-json ../../pretrained_weights/encoder.json \
-            --vocab-bpe ../../pretrained_weights/vocab.bpe \
-            --inputs $VALID_SRC_FILE \
-            --outputs $VALID_SRC_FILE".bart_bpe" \
-            --workers 60 \
-            --keep-empty;
-  python ../../src/src_syngec/fairseq-0.10.2/fairseq/examples/roberta/multiprocessing_bpe_encoder.py \
-            --encoder-json ../../pretrained_weights/encoder.json \
-            --vocab-bpe ../../pretrained_weights/vocab.bpe \
-            --inputs $VALID_TGT_FILE \
-            --outputs $VALID_TGT_FILE".bart_bpe" \
-            --workers 60 \
-            --keep-empty;
+    echo "Apply BPE..."
+    python ../../src/src_syngec/fairseq-0.10.2/examples/roberta/multiprocessing_bpe_encoder.py \
+        --encoder-json ../../pretrained_weights/encoder.json \
+        --vocab-bpe ../../pretrained_weights/vocab.bpe \
+        --inputs $TRAIN_SRC_FILE \
+        --outputs $TRAIN_SRC_FILE".bart_bpe" \
+        --workers 60 \
+        --keep-empty
+    python ../../src/src_syngec/fairseq-0.10.2/examples/roberta/multiprocessing_bpe_encoder.py \
+        --encoder-json ../../pretrained_weights/encoder.json \
+        --vocab-bpe ../../pretrained_weights/vocab.bpe \
+        --inputs $TRAIN_TGT_FILE \
+        --outputs $TRAIN_TGT_FILE".bart_bpe" \
+        --workers 60 \
+        --keep-empty
+    python ../../src/src_syngec/fairseq-0.10.2/examples/roberta/multiprocessing_bpe_encoder.py \
+        --encoder-json ../../pretrained_weights/encoder.json \
+        --vocab-bpe ../../pretrained_weights/vocab.bpe \
+        --inputs $VALID_SRC_FILE \
+        --outputs $VALID_SRC_FILE".bart_bpe" \
+        --workers 60 \
+        --keep-empty
+    python ../../src/src_syngec/fairseq-0.10.2/examples/roberta/multiprocessing_bpe_encoder.py \
+        --encoder-json ../../pretrained_weights/encoder.json \
+        --vocab-bpe ../../pretrained_weights/vocab.bpe \
+        --inputs $VALID_TGT_FILE \
+        --outputs $VALID_TGT_FILE".bart_bpe" \
+        --workers 60 \
+        --keep-empty
 fi
 
 # Decode
 if [ ! -f $TRAIN_SRC_FILE".bart_bpe.tok" ]; then
-  python ../../utils/multiprocessing_bpe_decoder.py \
-          --encoder-json ../../pretrained_weights/encoder.json \
-          --vocab-bpe ../../pretrained_weights/vocab.bpe \
-          --inputs $TRAIN_SRC_FILE".bart_bpe" \
-          --outputs $TRAIN_SRC_FILE".bart_bpe.tok" \
-          --workers 60 \
-          --keep-empty;
-  python ../../utils/multiprocessing_bpe_decoder.py \
-          --encoder-json ../../pretrained_weights/encoder.json \
-          --vocab-bpe ../../pretrained_weights/vocab.bpe \
-          --inputs $VALID_SRC_FILE".bart_bpe" \
-          --outputs $VALID_SRC_FILE".bart_bpe.tok" \
-          --workers 60 \
-          --keep-empty;
+    python ../../utils/multiprocessing_bpe_decoder.py \
+        --encoder-json ../../pretrained_weights/encoder.json \
+        --vocab-bpe ../../pretrained_weights/vocab.bpe \
+        --inputs $TRAIN_SRC_FILE".bart_bpe" \
+        --outputs $TRAIN_SRC_FILE".bart_bpe.tok" \
+        --workers 60 \
+        --keep-empty
+    python ../../utils/multiprocessing_bpe_decoder.py \
+        --encoder-json ../../pretrained_weights/encoder.json \
+        --vocab-bpe ../../pretrained_weights/vocab.bpe \
+        --inputs $VALID_SRC_FILE".bart_bpe" \
+        --outputs $VALID_SRC_FILE".bart_bpe.tok" \
+        --workers 60 \
+        --keep-empty
 fi
 
 # Subword Align
 if [ ! -f $TRAIN_SRC_FILE".bart_swm" ]; then
-  echo "Align subwords and words..."
-  python ../../utils/subword_align.py $TRAIN_SRC_FILE $TRAIN_SRC_FILE".bart_bpe.tok" $TRAIN_SRC_FILE".bart_swm"
-  python ../../utils/subword_align.py $VALID_SRC_FILE $VALID_SRC_FILE".bart_bpe.tok" $VALID_SRC_FILE".bart_swm"
+    echo "Align subwords and words..."
+    python ../../utils/subword_align.py $TRAIN_SRC_FILE $TRAIN_SRC_FILE".bart_bpe.tok" $TRAIN_SRC_FILE".bart_swm"
+    python ../../utils/subword_align.py $VALID_SRC_FILE $VALID_SRC_FILE".bart_bpe.tok" $VALID_SRC_FILE".bart_swm"
 fi
 
 # fairseq preprocess
@@ -353,19 +351,18 @@ cp $TRAIN_SRC_FILE".bart_swm" $PROCESSED_DIR/train.swm.src
 cp $VALID_SRC_FILE".bart_swm" $PROCESSED_DIR/valid.swm.src
 
 # syntax specific
-python ../../utils/syntax_information_reprocess.py $TRAIN_SRC_FILE $CONLL_SUFFIX conll bart
-python ../../utils/syntax_information_reprocess.py $TRAIN_SRC_FILE $CONLL_SUFFIX probs bart
-python ../../utils/syntax_information_reprocess.py $VALID_SRC_FILE $CONLL_SUFFIX conll bart
-python ../../utils/syntax_information_reprocess.py $VALID_SRC_FILE $CONLL_SUFFIX probs bart
-
+python ../../utils/syntax_information_reprocess.py $TRAIN_SRC_FILE $CoNLL_SUFFIX conll bart
+python ../../utils/syntax_information_reprocess.py $TRAIN_SRC_FILE $CoNLL_SUFFIX probs bart
+python ../../utils/syntax_information_reprocess.py $VALID_SRC_FILE $CoNLL_SUFFIX conll bart
+python ../../utils/syntax_information_reprocess.py $VALID_SRC_FILE $CoNLL_SUFFIX probs bart
 
 cp $TRAIN_SRC_FILE".${CoNLL_SUFFIX_PROCESSED}" $PROCESSED_DIR/train.conll.src
 cp $VALID_SRC_FILE".${CoNLL_SUFFIX_PROCESSED}" $PROCESSED_DIR/valid.conll.src
 
 if [ ! -f $TRAIN_SRC_FILE".${CoNLL_SUFFIX_PROCESSED}.dpd" ]; then
-  echo "Calculate dependency distance..."
-  python ../../utils/calculate_dependency_distance.py $TRAIN_SRC_FILE".${CoNLL_SUFFIX}" $PROCESSED_DIR/train.swm.src $TRAIN_SRC_FILE".${CoNLL_SUFFIX_PROCESSED}.dpd"
-  python ../../utils/calculate_dependency_distance.py $VALID_SRC_FILE".${CoNLL_SUFFIX}" $PROCESSED_DIR/valid.swm.src $VALID_SRC_FILE".${CoNLL_SUFFIX_PROCESSED}.dpd"
+    echo "Calculate dependency distance..."
+    python ../../utils/calculate_dependency_distance.py $TRAIN_SRC_FILE".${CoNLL_SUFFIX}" $PROCESSED_DIR/train.swm.src $TRAIN_SRC_FILE".${CoNLL_SUFFIX_PROCESSED}.dpd"
+    python ../../utils/calculate_dependency_distance.py $VALID_SRC_FILE".${CoNLL_SUFFIX}" $PROCESSED_DIR/valid.swm.src $VALID_SRC_FILE".${CoNLL_SUFFIX_PROCESSED}.dpd"
 fi
 
 cp $TRAIN_SRC_FILE".${CoNLL_SUFFIX_PROCESSED}.dpd" $PROCESSED_DIR/train.dpd.src
@@ -378,22 +375,21 @@ echo "Preprocess..."
 mkdir -p $PROCESSED_DIR/bin
 
 python $FAIRSEQ_DIR/preprocess.py --source-lang src --target-lang tgt \
-       --user-dir ../../src/src_syngec/syngec_model \
-       --task syntax-enhanced-translation \
-       --trainpref $PROCESSED_DIR/train.bpe \
-       --validpref $PROCESSED_DIR/valid.bpe \
-       --destdir $PROCESSED_DIR/bin \
-       --workers $WORKER_NUM \
-       --conll-suffix conll \
-       --swm-suffix swm \
-       --dpd-suffix dpd \
-       --probs-suffix probs \
-       --labeldict ../../data/dicts/syntax_label_gec.dict \
-       --srcdict ../../pretrained_weights/dict.txt \
-       --tgtdict ../../pretrained_weights/dict.txt
+    --user-dir ../../src/src_syngec/syngec_model \
+    --task syntax-enhanced-translation \
+    --trainpref $PROCESSED_DIR/train.bpe \
+    --validpref $PROCESSED_DIR/valid.bpe \
+    --destdir $PROCESSED_DIR/bin \
+    --workers $WORKER_NUM \
+    --conll-suffix conll \
+    --swm-suffix swm \
+    --dpd-suffix dpd \
+    --probs-suffix probs \
+    --labeldict ../../data/dicts/syntax_label_gec.dict \
+    --srcdict ../../pretrained_weights/dict.txt \
+    --tgtdict ../../pretrained_weights/dict.txt
 
 echo "Finished!"
-
 
 #######################
 # Preprocess CoNLL-14-Test
@@ -412,38 +408,38 @@ TEST_SRC_FILE=../../data/conll14_test/src.txt
 
 # apply bpe
 if [ ! -f $TRAIN_SRC_FILE".bart_bpe" ]; then
-  echo "Apply BPE..."
-  python ../../src/src_syngec/fairseq-0.10.2/fairseq/examples/roberta/multiprocessing_bpe_encoder.py \
-            --encoder-json ../../pretrained_weights/encoder.json \
-            --vocab-bpe ../../pretrained_weights/vocab.bpe \
-            --inputs $TEST_SRC_FILE \
-            --outputs $TEST_SRC_FILE".bart_bpe" \
-            --workers 60 \
-            --keep-empty;
-  python ../../src/src_syngec/fairseq-0.10.2/fairseq/examples/roberta/multiprocessing_bpe_encoder.py \
-            --encoder-json ../../pretrained_weights/encoder.json \
-            --vocab-bpe ../../pretrained_weights/vocab.bpe \
-            --inputs $TEST_TGT_FILE \
-            --outputs $TEST_TGT_FILE".bart_bpe" \
-            --workers 60 \
-            --keep-empty;
+    echo "Apply BPE..."
+    python ../../src/src_syngec/fairseq-0.10.2/examples/roberta/multiprocessing_bpe_encoder.py \
+        --encoder-json ../../pretrained_weights/encoder.json \
+        --vocab-bpe ../../pretrained_weights/vocab.bpe \
+        --inputs $TEST_SRC_FILE \
+        --outputs $TEST_SRC_FILE".bart_bpe" \
+        --workers 60 \
+        --keep-empty
+    python ../../src/src_syngec/fairseq-0.10.2/examples/roberta/multiprocessing_bpe_encoder.py \
+        --encoder-json ../../pretrained_weights/encoder.json \
+        --vocab-bpe ../../pretrained_weights/vocab.bpe \
+        --inputs $TEST_TGT_FILE \
+        --outputs $TEST_TGT_FILE".bart_bpe" \
+        --workers 60 \
+        --keep-empty
 fi
 
 # Decode
 if [ ! -f $TEST_SRC_FILE".bart_bpe.tok" ]; then
-  python ../../utils/multiprocessing_bpe_decoder.py \
-          --encoder-json ../../pretrained_weights/encoder.json \
-          --vocab-bpe ../../pretrained_weights/vocab.bpe \
-          --inputs $TEST_SRC_FILE".bart_bpe" \
-          --outputs $TEST_SRC_FILE".bart_bpe.tok" \
-          --workers 60 \
-          --keep-empty;
+    python ../../utils/multiprocessing_bpe_decoder.py \
+        --encoder-json ../../pretrained_weights/encoder.json \
+        --vocab-bpe ../../pretrained_weights/vocab.bpe \
+        --inputs $TEST_SRC_FILE".bart_bpe" \
+        --outputs $TEST_SRC_FILE".bart_bpe.tok" \
+        --workers 60 \
+        --keep-empty
 fi
 
 # Subword Align
 if [ ! -f $TEST_SRC_FILE".bart_swm" ]; then
-  echo "Align subwords and words..."
-  python ../../utils/subword_align.py $TEST_SRC_FILE $TEST_SRC_FILE".bart_bpe.tok" $TEST_SRC_FILE".bart_swm"
+    echo "Align subwords and words..."
+    python ../../utils/subword_align.py $TEST_SRC_FILE $TEST_SRC_FILE".bart_bpe.tok" $TEST_SRC_FILE".bart_swm"
 fi
 
 # fairseq preprocess
@@ -453,15 +449,14 @@ cp $TEST_SRC_FILE".bart_bpe" $PROCESSED_DIR/test.bpe.src
 cp $TEST_SRC_FILE".bart_swm" $PROCESSED_DIR/test.swm.src
 
 # syntax specific
-python ../../utils/syntax_information_reprocess.py $TEST_SRC_FILE $CONLL_SUFFIX conll bart
-python ../../utils/syntax_information_reprocess.py $TEST_SRC_FILE $CONLL_SUFFIX probs bart
-
+python ../../utils/syntax_information_reprocess.py $TEST_SRC_FILE $CoNLL_SUFFIX conll bart
+python ../../utils/syntax_information_reprocess.py $TEST_SRC_FILE $CoNLL_SUFFIX probs bart
 
 cp $TEST_SRC_FILE".${CoNLL_SUFFIX_PROCESSED}" $PROCESSED_DIR/test.conll.src
 
 if [ ! -f $TEST_SRC_FILE".${CoNLL_SUFFIX_PROCESSED}.dpd" ]; then
-  echo "Calculate dependency distance..."
-  python ../../utils/calculate_dependency_distance.py $TEST_SRC_FILE".${CoNLL_SUFFIX}" $PROCESSED_DIR/test.swm.src $TEST_SRC_FILE".${CoNLL_SUFFIX_PROCESSED}.dpd"
+    echo "Calculate dependency distance..."
+    python ../../utils/calculate_dependency_distance.py $TEST_SRC_FILE".${CoNLL_SUFFIX}" $PROCESSED_DIR/test.swm.src $TEST_SRC_FILE".${CoNLL_SUFFIX_PROCESSED}.dpd"
 fi
 
 cp $TEST_SRC_FILE".${CoNLL_SUFFIX_PROCESSED}.dpd" $PROCESSED_DIR/test.dpd.src
@@ -471,19 +466,19 @@ echo "Preprocess..."
 mkdir -p $PROCESSED_DIR/bin
 
 python $FAIRSEQ_DIR/preprocess.py --source-lang src --target-lang tgt \
-       --only-source \
-       --user-dir ../../src/src_syngec/syngec_model \
-       --task syntax-enhanced-translation \
-       --testpref $PROCESSED_DIR/test.bpe \
-       --destdir $PROCESSED_DIR/bin \
-       --workers $WORKER_NUM \
-       --conll-suffix conll \
-       --swm-suffix swm \
-       --dpd-suffix dpd \
-       --probs-suffix probs \
-       --labeldict ../../data/dicts/syntax_label_gec.dict \
-       --srcdict ../../pretrained_weights/dict.txt \
-       --tgtdict ../../pretrained_weights/dict.txt
+    --only-source \
+    --user-dir ../../src/src_syngec/syngec_model \
+    --task syntax-enhanced-translation \
+    --testpref $PROCESSED_DIR/test.bpe \
+    --destdir $PROCESSED_DIR/bin \
+    --workers $WORKER_NUM \
+    --conll-suffix conll \
+    --swm-suffix swm \
+    --dpd-suffix dpd \
+    --probs-suffix probs \
+    --labeldict ../../data/dicts/syntax_label_gec.dict \
+    --srcdict ../../pretrained_weights/dict.txt \
+    --tgtdict ../../pretrained_weights/dict.txt
 
 echo "Finished!"
 
@@ -504,38 +499,38 @@ TEST_SRC_FILE=../../data/bea19_test/src.txt
 
 # apply bpe
 if [ ! -f $TRAIN_SRC_FILE".bart_bpe" ]; then
-  echo "Apply BPE..."
-  python ../../src/src_syngec/fairseq-0.10.2/fairseq/examples/roberta/multiprocessing_bpe_encoder.py \
-            --encoder-json ../../pretrained_weights/encoder.json \
-            --vocab-bpe ../../pretrained_weights/vocab.bpe \
-            --inputs $TEST_SRC_FILE \
-            --outputs $TEST_SRC_FILE".bart_bpe" \
-            --workers 60 \
-            --keep-empty;
-  python ../../src/src_syngec/fairseq-0.10.2/fairseq/examples/roberta/multiprocessing_bpe_encoder.py \
-            --encoder-json ../../pretrained_weights/encoder.json \
-            --vocab-bpe ../../pretrained_weights/vocab.bpe \
-            --inputs $TEST_TGT_FILE \
-            --outputs $TEST_TGT_FILE".bart_bpe" \
-            --workers 60 \
-            --keep-empty;
+    echo "Apply BPE..."
+    python ../../src/src_syngec/fairseq-0.10.2/examples/roberta/multiprocessing_bpe_encoder.py \
+        --encoder-json ../../pretrained_weights/encoder.json \
+        --vocab-bpe ../../pretrained_weights/vocab.bpe \
+        --inputs $TEST_SRC_FILE \
+        --outputs $TEST_SRC_FILE".bart_bpe" \
+        --workers 60 \
+        --keep-empty
+    python ../../src/src_syngec/fairseq-0.10.2/examples/roberta/multiprocessing_bpe_encoder.py \
+        --encoder-json ../../pretrained_weights/encoder.json \
+        --vocab-bpe ../../pretrained_weights/vocab.bpe \
+        --inputs $TEST_TGT_FILE \
+        --outputs $TEST_TGT_FILE".bart_bpe" \
+        --workers 60 \
+        --keep-empty
 fi
 
 # Decode
 if [ ! -f $TEST_SRC_FILE".bart_bpe.tok" ]; then
-  python ../../utils/multiprocessing_bpe_decoder.py \
-          --encoder-json ../../pretrained_weights/encoder.json \
-          --vocab-bpe ../../pretrained_weights/vocab.bpe \
-          --inputs $TEST_SRC_FILE".bart_bpe" \
-          --outputs $TEST_SRC_FILE".bart_bpe.tok" \
-          --workers 60 \
-          --keep-empty;
+    python ../../utils/multiprocessing_bpe_decoder.py \
+        --encoder-json ../../pretrained_weights/encoder.json \
+        --vocab-bpe ../../pretrained_weights/vocab.bpe \
+        --inputs $TEST_SRC_FILE".bart_bpe" \
+        --outputs $TEST_SRC_FILE".bart_bpe.tok" \
+        --workers 60 \
+        --keep-empty
 fi
 
 # Subword Align
 if [ ! -f $TEST_SRC_FILE".bart_swm" ]; then
-  echo "Align subwords and words..."
-  python ../../utils/subword_align.py $TEST_SRC_FILE $TEST_SRC_FILE".bart_bpe.tok" $TEST_SRC_FILE".bart_swm"
+    echo "Align subwords and words..."
+    python ../../utils/subword_align.py $TEST_SRC_FILE $TEST_SRC_FILE".bart_bpe.tok" $TEST_SRC_FILE".bart_swm"
 fi
 
 # fairseq preprocess
@@ -545,15 +540,14 @@ cp $TEST_SRC_FILE".bart_bpe" $PROCESSED_DIR/test.bpe.src
 cp $TEST_SRC_FILE".bart_swm" $PROCESSED_DIR/test.swm.src
 
 # syntax specific
-python ../../utils/syntax_information_reprocess.py $TEST_SRC_FILE $CONLL_SUFFIX conll bart
-python ../../utils/syntax_information_reprocess.py $TEST_SRC_FILE $CONLL_SUFFIX probs bart
-
+python ../../utils/syntax_information_reprocess.py $TEST_SRC_FILE $CoNLL_SUFFIX conll bart
+python ../../utils/syntax_information_reprocess.py $TEST_SRC_FILE $CoNLL_SUFFIX probs bart
 
 cp $TEST_SRC_FILE".${CoNLL_SUFFIX_PROCESSED}" $PROCESSED_DIR/test.conll.src
 
 if [ ! -f $TEST_SRC_FILE".${CoNLL_SUFFIX_PROCESSED}.dpd" ]; then
-  echo "Calculate dependency distance..."
-  python ../../utils/calculate_dependency_distance.py $TEST_SRC_FILE".${CoNLL_SUFFIX}" $PROCESSED_DIR/test.swm.src $TEST_SRC_FILE".${CoNLL_SUFFIX_PROCESSED}.dpd"
+    echo "Calculate dependency distance..."
+    python ../../utils/calculate_dependency_distance.py $TEST_SRC_FILE".${CoNLL_SUFFIX}" $PROCESSED_DIR/test.swm.src $TEST_SRC_FILE".${CoNLL_SUFFIX_PROCESSED}.dpd"
 fi
 
 cp $TEST_SRC_FILE".${CoNLL_SUFFIX_PROCESSED}.dpd" $PROCESSED_DIR/test.dpd.src
@@ -563,18 +557,18 @@ echo "Preprocess..."
 mkdir -p $PROCESSED_DIR/bin
 
 python $FAIRSEQ_DIR/preprocess.py --source-lang src --target-lang tgt \
-       --only-source \
-       --user-dir ../../src/src_syngec/syngec_model \
-       --task syntax-enhanced-translation \
-       --testpref $PROCESSED_DIR/test.bpe \
-       --destdir $PROCESSED_DIR/bin \
-       --workers $WORKER_NUM \
-       --conll-suffix conll \
-       --swm-suffix swm \
-       --dpd-suffix dpd \
-       --probs-suffix probs \
-       --labeldict ../../data/dicts/syntax_label_gec.dict \
-       --srcdict ../../pretrained_weights/dict.txt \
-       --tgtdict ../../pretrained_weights/dict.txt
+    --only-source \
+    --user-dir ../../src/src_syngec/syngec_model \
+    --task syntax-enhanced-translation \
+    --testpref $PROCESSED_DIR/test.bpe \
+    --destdir $PROCESSED_DIR/bin \
+    --workers $WORKER_NUM \
+    --conll-suffix conll \
+    --swm-suffix swm \
+    --dpd-suffix dpd \
+    --probs-suffix probs \
+    --labeldict ../../data/dicts/syntax_label_gec.dict \
+    --srcdict ../../pretrained_weights/dict.txt \
+    --tgtdict ../../pretrained_weights/dict.txt
 
 echo "Finished!"
