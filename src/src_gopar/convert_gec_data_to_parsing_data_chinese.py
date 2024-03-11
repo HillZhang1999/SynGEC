@@ -127,14 +127,14 @@ class Tree_Transformer:
                     for i in range(target_word_id, target_word_num):
                         insert_word = target_words[i]
                         pos_id = end_pos + offset
-                        if pos_id + 2 > len(self.conllx):
+                        if pos_id + 1 > len(self.conllx):
                             continue
                         self.transform_tree("D", pos_id, insert_word)
                         offset += 1
             elif error_type[0] == "M":  # 冗余错误转化
                 for insert_word in target_words:
                     pos_id = start_pos + offset
-                    if pos_id + 2 > len(self.conllx):
+                    if pos_id + 1 > len(self.conllx):
                         continue
                     self.transform_tree("D", pos_id, insert_word)
                     offset += 1
